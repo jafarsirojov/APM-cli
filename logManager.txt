@@ -1,0 +1,120 @@
+2020/02/09 03:28:27 start application
+2020/02/09 03:28:27 open db
+2020/02/09 03:28:27 start operations loop
+2020/02/09 03:28:50 can't handle login: can't execute query SELECT login, password FROM managers WHERE login = ?: no such table: managers
+2020/02/09 03:28:50 finish operations loop
+2020/02/09 03:28:50 finish application
+2020/02/09 03:28:50 close db
+2020/02/09 03:29:04 start application
+2020/02/09 03:29:04 open db
+2020/02/09 03:29:04 start operations loop
+2020/02/09 03:29:14 can't handle login: can't execute query SELECT login, password FROM managers WHERE login = ?: no such table: managers
+2020/02/09 03:29:14 finish operations loop
+2020/02/09 03:29:14 finish application
+2020/02/09 03:29:14 close db
+2020/02/09 03:29:38 start application
+2020/02/09 03:29:38 open db
+2020/02/09 03:29:38 start operations loop
+2020/02/09 03:29:51 can't handle login: can't execute query SELECT login, password FROM managers WHERE login = ?: no such table: managers
+2020/02/09 03:29:51 finish operations loop
+2020/02/09 03:29:51 finish application
+2020/02/09 03:29:51 close db
+2020/02/09 04:41:58 start application
+2020/02/09 04:41:58 open db
+2020/02/09 04:41:58 start operations loop
+2020/02/09 04:42:27 can't handle login: can't execute query SELECT login, password FROM managers WHERE login = ?: no such table: managers
+2020/02/09 04:42:27 finish operations loop
+2020/02/09 04:42:27 finish application
+2020/02/09 04:42:27 close db
+2020/02/09 04:42:59 start application
+2020/02/09 04:42:59 open db
+2020/02/09 04:43:10 start operations loop
+2020/02/09 04:43:31 can't handle login: can't execute query SELECT login, password FROM managers WHERE login = ?: no such table: managers
+2020/02/09 04:43:44 finish operations loop
+2020/02/09 04:43:54 finish application
+2020/02/09 04:43:55 close db
+2020/02/09 04:48:23 start application
+2020/02/09 04:48:23 open db
+2020/02/09 04:48:23 start operations loop
+2020/02/09 04:49:57 can't add user: table users has no column named numberPhone
+2020/02/09 04:50:47 can't add user: table users has no column named numberPhone
+2020/02/09 04:51:12 start application
+2020/02/09 04:51:13 open db
+2020/02/09 04:51:14 start operations loop
+2020/02/09 04:52:09 can't add user: table users has no column named numberPhone
+2020/02/09 04:53:02 start application
+2020/02/09 04:53:03 open db
+2020/02/09 04:53:22 start operations loop
+2020/02/09 04:54:29 start application
+2020/02/09 04:54:29 open db
+2020/02/09 04:54:29 start operations loop
+2020/02/09 05:02:16 start application
+2020/02/09 05:02:16 open db
+2020/02/09 05:02:16 start operations loop
+2020/02/09 05:02:51 can't add user: table users has no column named numberPhone
+2020/02/09 05:04:24 start application
+2020/02/09 05:04:25 open db
+2020/02/09 05:04:25 start operations loop
+2020/02/09 05:06:03 start application
+2020/02/09 05:06:03 open db
+2020/02/09 05:06:03 start operations loop
+2020/02/09 05:06:14 can't handle login: invalid password
+2020/02/09 05:06:14 finish operations loop
+2020/02/09 05:06:14 finish application
+2020/02/09 05:06:14 close db
+2020/02/09 05:06:26 start application
+2020/02/09 05:06:26 open db
+2020/02/09 05:06:26 start operations loop
+2020/02/09 05:07:13 can't add user: UNIQUE constraint failed: users.login
+2020/02/09 05:13:01 start application
+2020/02/09 05:13:01 open db
+2020/02/09 05:13:02 start operations loop
+2020/02/09 05:16:28 can't add card: no such column: user_id
+2020/02/09 05:17:02 start application
+2020/02/09 05:17:02 open db
+2020/02/09 05:17:02 start operations loop
+2020/02/09 05:17:40 start application
+2020/02/09 05:17:40 open db
+2020/02/09 05:17:40 start operations loop
+2020/02/09 06:30:19 start application
+2020/02/09 06:30:19 open db
+2020/02/09 06:30:19 start operations loop
+2020/02/09 06:30:44 can't add user: expected integer
+2020/02/09 06:31:49 can't add card: no: such column user_id
+2020/02/09 06:44:38 can't add atm: column index out of range
+2020/02/09 06:45:22 can't add atm: column index out of range
+2020/02/09 06:46:15 start application
+2020/02/09 06:46:16 open db
+2020/02/09 06:46:16 start operations loop
+2020/02/09 06:54:15 start application
+2020/02/09 06:54:15 open db
+2020/02/09 06:54:16 start operations loop
+2020/02/09 06:54:35 can't add atm: column index out of range
+2020/02/09 07:04:19 start application
+2020/02/09 07:04:19 open db
+2020/02/09 07:04:19 start operations loop
+2020/02/09 07:05:00 can't add atm: column index out of range
+2020/02/09 07:05:43 Can't read input: EOF
+2020/02/09 07:27:31 start application
+2020/02/09 07:27:31 open db
+2020/02/09 07:27:31 start operations loop
+2020/02/09 07:30:15 start application
+2020/02/09 07:30:15 open db
+2020/02/09 07:30:15 start operations loop
+2020/02/09 07:31:09 can't add user: UNIQUE constraint failed: users.login
+2020/02/09 07:33:51 start application
+2020/02/09 07:33:51 open db
+2020/02/09 07:33:51 start operations loop
+2020/02/09 07:34:28 can't add user: UNIQUE constraint failed: users.login
+2020/02/09 09:15:45 start application
+2020/02/09 09:15:45 open db
+2020/02/09 09:15:45 start operations loop
+2020/02/09 17:45:17 start application
+2020/02/09 17:45:17 open db
+2020/02/09 17:45:17 start operations loop
+2020/02/09 18:03:41 start application
+2020/02/09 18:03:41 open db
+2020/02/09 18:03:41 start operations loop
+2020/02/09 18:48:05 finish operations loop
+2020/02/09 18:48:05 finish application
+2020/02/09 18:48:05 close db

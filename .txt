@@ -1,0 +1,16 @@
+2020/02/08 21:14:35 start application
+2020/02/08 21:14:35 open db
+2020/02/08 21:14:35 can't init db: table manager has 4 columns but 3 values were supplied
+2020/02/08 21:15:06 start application
+2020/02/08 21:15:09 open db
+2020/02/08 21:15:12 can't init db: table manager has 4 columns but 3 values were supplied
+2020/02/08 21:15:27 start application
+2020/02/08 21:15:27 open db
+2020/02/08 21:16:05 can't init db: table manager has 4 columns but 3 values were supplied
+2020/02/08 21:16:17 start application
+2020/02/08 21:16:17 open db
+2020/02/08 21:18:47 start application
+2020/02/08 21:18:47 open db
+2020/02/08 21:22:25 start application
+2020/02/08 21:22:25 open db
+2020/02/08 21:22:25 start operations loop

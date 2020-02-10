@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"database/sql"
 	"fmt"
 	"github.com/jafarsirojov/APM-cli/cmd/core"
@@ -10,10 +9,8 @@ import (
 	"strings"
 )
 
-
-
 func main() {
-	file, err := os.OpenFile("logManager.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+	file, err := os.OpenFile("logClient.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,14 +32,12 @@ func main() {
 		log.Fatalf("can't init db: %v", err)
 	}
 
-	fmt.Fprintln(os.Stdout, `Добро пожаловать! ,`)
+	fmt.Fprintln(os.Stdout, `Добро пожаловать в наше приложение! ,`)
 	log.Print("start operations loop")
 	operationsLoop(db, unauthorizedOperations, unauthorizedOperationsLoop)
 	log.Print("finish operations loop")
 	log.Print("finish application")
 }
-
-
 
 func operationsLoop(db *sql.DB, commands string, loop func(db *sql.DB, cmd string) bool) {
 	for {
@@ -71,63 +66,22 @@ func unauthorizedOperationsLoop(db *sql.DB, cmd string) (exit bool) {
 			return false
 		}
 		operationsLoop(db, authorizedOperations, authorizedOperationsLoop)
-	case "q":
-		return true
-	default:
-		fmt.Printf("Вы выбрали неверную команду: %s\n", cmd)
-	}
-
-	return false
-}
-
-
-
-func authorizedOperationsLoop(db *sql.DB, cmd string) (exit bool) {
-	switch cmd {
-	case "1":
-		err := handleUser(db)
-		if err != nil {
-			log.Printf("can't add user: %v", err)
-			return true
-		}
 	case "2":
-		err := handleCard(db)
+		atms, err := core.GetAllAtms(db)
 		if err != nil {
-			log.Printf("can't add card: %v", err)
-			return true
+			log.Printf("can't get all atms: %v", err)
+			return true // TODO: may be log fatal
 		}
-	case "3":
-		err := handleService(db)
-		if err != nil {
-			log.Printf("can't add service: %v", err)
-			return true
-		}
-	case "4":
-		err := handleAtm(db)
-		if err != nil {
-			log.Printf("can't add atm: %v", err)
-			return true
-		}
-	//case "5":
-	//	err := handleExport(db)
-	//	if err != nil {
-	//		log.Printf("can't export: %v", err)
-	//		return true
-	//	}
-	//case "6":
-	//	err := handleImport(db)
-	//	if err != nil {
-	//		log.Printf("can't import: %v", err)
-	//		return true
-	//	}
+		handleListAtm(atms)
+
 	case "q":
 		return true
 	default:
 		fmt.Printf("Вы выбрали неверную команду: %s\n", cmd)
 	}
+
 	return false
 }
-
 
 func handleLogin(db *sql.DB) (ok bool, err error) {
 	fmt.Println("Введите ваш логин и пароль")
@@ -144,7 +98,7 @@ func handleLogin(db *sql.DB) (ok bool, err error) {
 		return false, err
 	}
 
-	ok, err = core.LoginManager(login, password, db)
+	ok, err = core.LoginUsers(login, password, db)
 	if err != nil {
 		return false, err
 	}
@@ -153,8 +107,46 @@ func handleLogin(db *sql.DB) (ok bool, err error) {
 }
 
 
-func handleUser(db *sql.DB) ( err error) {
-	fmt.Println("Введите данные клиента:")
+func authorizedOperationsLoop(db *sql.DB, cmd string) (exit bool) {
+	switch cmd {
+	case "1":
+		err := handleCardsUser(db)
+		if err != nil {
+			log.Printf("can't list of cards client: %v", err)
+			return true
+		}
+	//case "2":
+	//	err := handleTransferMoney(db)
+	//	if err != nil {
+	//		log.Printf("can't transfer money: %v", err)
+	//		return true
+	//	}
+	//case "3":
+	//	err := handlePayForTheService(db)
+	//	if err != nil {
+	//		log.Printf("can't pay for the service: %v", err)
+	//		return true
+	//	}
+	case "4":
+		atms, err := core.GetAllAtms(db)
+		if err != nil {
+			log.Printf("can't get all atms: %v", err)
+			return true // TODO: may be log fatal
+		}
+		handleListAtm(atms)
+	case "q":
+		return true
+	default:
+		fmt.Printf("Вы выбрали неверную команду: %s\n", cmd)
+	}
+	return false
+}
+
+
+//-------------handle
+
+func handleCardsUser(db *sql.DB) ( err error) {
+	fmt.Println("Список ваших счётов:")
 	var name string
 	fmt.Print("Имя клиента: ")
 	_, err = fmt.Scan(&name)
@@ -195,7 +187,7 @@ func handleUser(db *sql.DB) ( err error) {
 		return  	err
 	}
 
-	fmt.Println("Клиент успешно добавлен!\n")
+	fmt.Println("Клиент успешно добавлен!")
 
 	return nil
 }
@@ -204,7 +196,7 @@ func handleUser(db *sql.DB) ( err error) {
 func handleCard(db *sql.DB) ( err error) {
 	fmt.Println("Введите данные счёта:")
 	var name string
-	fmt.Print("Название счёта: ")
+	fmt.Print("Имя карту: ")
 	_, err = fmt.Scan(&name)
 	if err != nil {
 		return  err
@@ -238,7 +230,7 @@ func handleCard(db *sql.DB) ( err error) {
 func handleService(db *sql.DB) (err error) {
 	fmt.Println("Введите данные услуги:")
 	var name string
-	fmt.Print("Название услуги: ")
+	fmt.Print("Имя услуги: ")
 	_, err = fmt.Scan(&name)
 	if err != nil {
 		return  err
@@ -256,7 +248,6 @@ func handleService(db *sql.DB) (err error) {
 
 func handleAtm(db *sql.DB) ( err error) {
 	fmt.Println("Введите данные банкомата:")
-
 	var name string
 	fmt.Print("Название банкомата: ")
 	_, err = fmt.Scan(&name)
@@ -265,13 +256,11 @@ func handleAtm(db *sql.DB) ( err error) {
 	}
 
 	var address string
-	fmt.Print("Адресс банкомата: ")
-	reader := bufio.NewReader(os.Stdin)
-	address, err = reader.ReadString('\n')
+	fmt.Print("Адрес банкомата: ")
+	_, err = fmt.Scan(&address)
 	if err != nil {
-		log.Fatalf("Can't read command: %v", err)
+		return  err
 	}
-
 
 	err = core.AddAtm( name, address, db)
 	if err != nil {
@@ -281,4 +270,15 @@ func handleAtm(db *sql.DB) ( err error) {
 	fmt.Println("Банкомат успешно добавлен!")
 
 	return nil
+}
+//new
+func handleListAtm(atms []core.Atm) {
+	for _, atm := range atms {
+		fmt.Printf(
+			"id: %d, name: %s, address: %s\n",
+			atm.Id,
+			atm.Name,
+			atm.Address,
+		)
+	}
 }
