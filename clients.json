@@ -1,0 +1,31 @@
+{
+  "Users": [
+    {
+      "Id": 1,
+      "Name": "User1",
+      "Login": "user1",
+      "Password": "secret",
+      "PassportSeries": "A000001",
+      "NumberPhone": 9001,
+      "HideShow": 3
+    },
+    {
+      "Id": 2,
+      "Name": "User2",
+      "Login": "user2",
+      "Password": "secret",
+      "PassportSeries": "A000002",
+      "NumberPhone": 9002,
+      "HideShow": 3
+    },
+    {
+      "Id": 3,
+      "Name": "User3",
+      "Login": "user3",
+      "Password": "secret",
+      "PassportSeries": "A000003",
+      "NumberPhone": 9003,
+      "HideShow": 3
+    }
+  ]
+}

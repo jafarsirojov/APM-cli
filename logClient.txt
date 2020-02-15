@@ -30,3 +30,94 @@
 2020/02/09 17:45:10 start application
 2020/02/09 17:45:10 open db
 2020/02/09 17:45:10 start operations loop
+2020/02/15 03:45:33 start application
+2020/02/15 03:45:33 open db
+2020/02/15 03:45:33 start operations loop
+2020/02/15 03:45:48 can't handle login: can't execute query SELECT login, password FROM manager WHERE login = ?: no such column: hideShow
+2020/02/15 03:45:48 finish operations loop
+2020/02/15 03:45:48 finish application
+2020/02/15 03:45:48 close db
+2020/02/15 03:46:16 start application
+2020/02/15 03:46:16 open db
+2020/02/15 03:46:16 start operations loop
+2020/02/15 03:46:33 can't handle login: can't execute query SELECT login, password FROM manager WHERE login = ?: no such column: hideShow
+2020/02/15 03:46:33 finish operations loop
+2020/02/15 03:46:33 finish application
+2020/02/15 03:46:33 close db
+2020/02/15 03:47:07 start application
+2020/02/15 03:47:07 open db
+2020/02/15 03:47:07 start operations loop
+2020/02/15 03:47:15 can't handle login: can't execute query SELECT login, password FROM manager WHERE login = ?: no such column: hideShow
+2020/02/15 03:47:15 finish operations loop
+2020/02/15 03:47:15 finish application
+2020/02/15 03:47:15 close db
+2020/02/15 03:47:48 start application
+2020/02/15 03:47:48 open db
+2020/02/15 03:47:48 start operations loop
+2020/02/15 03:52:05 start application
+2020/02/15 03:52:05 open db
+2020/02/15 03:52:05 start operations loop
+2020/02/15 04:45:56 start application
+2020/02/15 04:45:56 open db
+2020/02/15 04:45:56 start operations loop
+2020/02/15 04:49:33 start application
+2020/02/15 04:49:33 open db
+2020/02/15 04:49:33 start operations loop
+2020/02/15 04:58:49 start application
+2020/02/15 04:58:49 open db
+2020/02/15 04:58:49 start operations loop
+2020/02/15 06:22:14 start application
+2020/02/15 06:22:14 open db
+2020/02/15 06:22:14 start operations loop
+2020/02/15 10:12:11 start application
+2020/02/15 10:12:11 open db
+2020/02/15 10:12:11 start operations loop
+2020/02/15 10:15:37 start application
+2020/02/15 10:15:37 open db
+2020/02/15 10:15:37 start operations loop
+2020/02/15 10:22:41 start application
+2020/02/15 10:22:41 open db
+2020/02/15 10:22:41 start operations loop
+2020/02/15 10:23:34 can't handle login: invalid password
+2020/02/15 10:23:34 finish operations loop
+2020/02/15 10:23:34 finish application
+2020/02/15 10:23:34 close db
+2020/02/15 10:23:50 start application
+2020/02/15 10:23:50 open db
+2020/02/15 10:23:50 start operations loop
+2020/02/15 10:25:47 finish operations loop
+2020/02/15 10:25:47 finish application
+2020/02/15 10:25:47 close db
+2020/02/15 12:59:39 start application
+2020/02/15 12:59:39 open db
+2020/02/15 12:59:39 start operations loop
+2020/02/15 13:00:28 can't transfer services: CHECK constraint failed: cards
+2020/02/15 13:02:42 start application
+2020/02/15 13:02:42 open db
+2020/02/15 13:02:42 start operations loop
+2020/02/15 13:06:04 start application
+2020/02/15 13:06:04 open db
+2020/02/15 13:06:04 start operations loop
+2020/02/15 13:07:09 Can't pay to service: CHECK constraint failed: cards
+2020/02/15 13:07:35 start application
+2020/02/15 13:07:35 open db
+2020/02/15 13:07:35 start operations loop
+2020/02/15 13:11:17 CHECK constraint failed: cards
+2020/02/15 13:12:39 start application
+2020/02/15 13:12:39 open db
+2020/02/15 13:12:39 start operations loop
+2020/02/15 13:16:12 start application
+2020/02/15 13:16:12 open db
+2020/02/15 13:16:12 start operations loop
+2020/02/15 13:16:48 Can't pay to service: CHECK constraint failed: cards
+2020/02/15 13:18:46 start application
+2020/02/15 13:18:46 open db
+2020/02/15 13:18:46 start operations loop
+2020/02/15 13:19:05 can't handle login: invalid password
+2020/02/15 13:19:05 finish operations loop
+2020/02/15 13:19:05 finish application
+2020/02/15 13:19:05 close db
+2020/02/15 13:19:42 start application
+2020/02/15 13:19:42 open db
+2020/02/15 13:19:43 start operations loop
+2020/02/15 13:20:24 can't handle login: invalid password

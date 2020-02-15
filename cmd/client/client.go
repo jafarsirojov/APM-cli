@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/jafarsirojov/APM-cli/cmd/core"
+	"github.com/jafarsirojov/APM-core/pkg/core"
 	"log"
 	"os"
 	"strings"
@@ -59,7 +59,7 @@ func unauthorizedOperationsLoop(db *sql.DB, cmd string) (exit bool) {
 		ok, err := handleLogin(db)
 		if err != nil {
 			log.Printf("can't handle login: %v", err)
-			return true
+			return false
 		}
 		if !ok {
 			fmt.Println("Неправильно введён логин или пароль. Попробуйте ещё раз.")
@@ -70,9 +70,9 @@ func unauthorizedOperationsLoop(db *sql.DB, cmd string) (exit bool) {
 		atms, err := core.GetAllAtms(db)
 		if err != nil {
 			log.Printf("can't get all atms: %v", err)
-			return true // TODO: may be log fatal
+			return true
 		}
-		handleListAtm(atms)
+		listAtms(atms)
 
 	case "q":
 		return true
@@ -106,34 +106,49 @@ func handleLogin(db *sql.DB) (ok bool, err error) {
 	return ok, err
 }
 
-
 func authorizedOperationsLoop(db *sql.DB, cmd string) (exit bool) {
 	switch cmd {
 	case "1":
-		err := handleCardsUser(db)
+		userOnlineCards, err := core.GetUserCards(db)
 		if err != nil {
-			log.Printf("can't list of cards client: %v", err)
+			log.Printf("can't list of count client: %v", err)
 			return true
 		}
-	//case "2":
-	//	err := handleTransferMoney(db)
-	//	if err != nil {
-	//		log.Printf("can't transfer money: %v", err)
-	//		return true
-	//	}
-	//case "3":
-	//	err := handlePayForTheService(db)
-	//	if err != nil {
-	//		log.Printf("can't pay for the service: %v", err)
-	//		return true
-	//	}
+		cardsOnlineUser(userOnlineCards)
+
+	case "2":
+		err := transferMoney(db, transferToPhoneNumberOrCardNumber)
+		if err != nil {
+			log.Printf("can't transfer money: %v", err)
+			return true
+		}
+	case "3":
+		services, err := core.GetAllServices(db)
+		if err != nil {
+			log.Printf("can't get all services: %v", err)
+			return true
+		}
+		listServices(services)
+		err = handleTransferServices(db)
+		if err != nil {
+			fmt.Print("Упс неверный ход!!!")
+			log.Printf("Can't pay to service: %v",err)
+			return true
+		}
 	case "4":
 		atms, err := core.GetAllAtms(db)
 		if err != nil {
 			log.Printf("can't get all atms: %v", err)
-			return true // TODO: may be log fatal
+			return true
 		}
-		handleListAtm(atms)
+		listAtms(atms)
+	case "5":
+		opLog, err := core.ViewOperationsLogging(db)
+		if err != nil {
+			log.Printf("can't get all atms: %v", err)
+			return true
+		}
+		listUserOperationsLogging(opLog)
 	case "q":
 		return true
 	default:
@@ -142,143 +157,137 @@ func authorizedOperationsLoop(db *sql.DB, cmd string) (exit bool) {
 	return false
 }
 
-
-//-------------handle
-
-func handleCardsUser(db *sql.DB) ( err error) {
-	fmt.Println("Список ваших счётов:")
-	var name string
-	fmt.Print("Имя клиента: ")
-	_, err = fmt.Scan(&name)
-	if err != nil {
-		return  err
-	}
-
-	var login string
-	fmt.Print("Логин: ")
-	_, err = fmt.Scan(&login)
-	if err != nil {
-		return err
-	}
-
-	var password string
-	fmt.Print("Пароль: ")
-	_, err = fmt.Scan(&password)
-	if err != nil {
-		return err
-	}
-
-	var passportSeries string
-	fmt.Print("Серия пасспорта: ")
-	_, err = fmt.Scan(&passportSeries)
-	if err != nil {
-		return  err
-	}
-
-	var phoneNumber int
-	fmt.Print("Номер телефон: ")
-	_, err = fmt.Scan(&phoneNumber)
-	if err != nil {
-		return err
-	}
-
-	err = core.AddUser( name, login, password, passportSeries, phoneNumber, db)
-	if err != nil {
-		return  	err
-	}
-
-	fmt.Println("Клиент успешно добавлен!")
-
-	return nil
-}
-
-
-func handleCard(db *sql.DB) ( err error) {
-	fmt.Println("Введите данные счёта:")
-	var name string
-	fmt.Print("Имя карту: ")
-	_, err = fmt.Scan(&name)
-	if err != nil {
-		return  err
-	}
-
-	var balance int64
-	fmt.Print("Пополните счёт клиента: ")
-	_, err = fmt.Scan(&balance)
-	if err != nil {
-		return  err
-	}
-
-	var user_id int64
-	fmt.Print("Введите id владелец счёта: ")
-	_, err = fmt.Scan(&user_id)
-	if err != nil {
-		return  err
-	}
-
-	err = core.AddCard( name, balance, user_id, db)
-	if err != nil {
-		return  err
-	}
-
-	fmt.Println("Счёт успешно добавлен!")
-
-	return nil
-}
-
-
-func handleService(db *sql.DB) (err error) {
-	fmt.Println("Введите данные услуги:")
-	var name string
-	fmt.Print("Имя услуги: ")
-	_, err = fmt.Scan(&name)
-	if err != nil {
-		return  err
-	}
-
-	err = core.AddService( name, db)
-	if err != nil {
-		return  err
-	}
-
-	fmt.Println("Услуга успешно добавлено!")
-
-	return nil
-}
-
-func handleAtm(db *sql.DB) ( err error) {
-	fmt.Println("Введите данные банкомата:")
-	var name string
-	fmt.Print("Название банкомата: ")
-	_, err = fmt.Scan(&name)
-	if err != nil {
-		return  err
-	}
-
-	var address string
-	fmt.Print("Адрес банкомата: ")
-	_, err = fmt.Scan(&address)
-	if err != nil {
-		return  err
-	}
-
-	err = core.AddAtm( name, address, db)
-	if err != nil {
-		return  err
-	}
-
-	fmt.Println("Банкомат успешно добавлен!")
-
-	return nil
-}
-//new
-func handleListAtm(atms []core.Atm) {
+func listAtms(atms []core.Atm) {
 	for _, atm := range atms {
 		fmt.Printf(
 			"id: %d, name: %s, address: %s\n",
 			atm.Id,
 			atm.Name,
 			atm.Address,
+		)
+	}
+}
+
+func listUserOperationsLogging(opLogs []core.OperationsLogging) {
+	for _, opLog := range opLogs {
+		fmt.Printf(
+			"операция: %s, получатель-отправитель: %s, использовано денег в операции: %d, время операции: %s\n",
+			opLog.Name,
+			opLog.RecipientSender,
+			opLog.Balance,
+			opLog.Time,
+		)
+	}
+}
+
+func cardsOnlineUser(cards []core.Card) {
+	for _, card := range cards {
+		fmt.Printf(
+			"number count: %d, name: %s, balance: %d, number Count: %d\n",
+			card.Id,
+			card.Name,
+			card.Balance,
+			card.NumberCard,
+		)
+	}
+}
+
+func transferMoney(db *sql.DB, commands string) (err error) {
+	fmt.Println(commands)
+	var cmd string
+	_, err = fmt.Scan(&cmd)
+	if err != nil {
+		log.Fatalf("Can't read input: %v", err)
+	}
+	switch cmd {
+	case "1":
+		transferMoneyForCountNumber(db)
+	case "2":
+		transferMoneyForPhoneNumber(db)
+	case "q":
+		return nil
+	default:
+		fmt.Printf("Вы выбрали неверную команду: %s\n", cmd)
+	}
+
+	return nil
+}
+
+func transferMoneyForCountNumber(db *sql.DB) {
+	fmt.Print("Введите номер счёта:")
+	var countNumber string
+	fmt.Scan(&countNumber)
+
+	fmt.Print("Введите сумму перевода:")
+	var currency int
+	fmt.Scan(&currency)
+	if currency < 0{
+		fmt.Println("Упс)) Вы зломали банк!!! \n Хитрый ход!!!")
+		return
+	}
+
+	err := core.TransferMoneyCardNumber(countNumber, db)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	err = core.TransferMoney(currency, db)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	fmt.Println("Перевод успешно выполнен!!!")
+}
+
+func transferMoneyForPhoneNumber(db *sql.DB) {
+	fmt.Print("Введите номер телфона:")
+	var phoneNumber int
+	fmt.Scan(&phoneNumber)
+
+	fmt.Print("Введите сумму перевода:")
+	var currency int
+	fmt.Scan(&currency)
+	if currency < 0{
+		fmt.Println("Упс)) Вы зломали банк!!! \n Хитрый ход!!!")
+		return
+	}
+
+	err := core.TransferMoneyForPhoneNumber(phoneNumber, db)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	err = core.TransferMoney(currency, db)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	fmt.Println("Перевод успешно выполнен!!!")
+}
+
+func handleTransferServices(db *sql.DB) (err error) {
+	fmt.Println("Оплачивайте услуг))")
+	fmt.Print("Введите имя услуги: ")
+	var nameService string
+	fmt.Scan(&nameService)
+
+	fmt.Print("Введите сумму оплачиваемого услуги: ")
+	var currency int
+	fmt.Scan(&currency)
+	err = core.TransferServices(currency, nameService, db)
+	if err != nil {
+		return err
+	}
+	fmt.Print("Улуга успешно оплачено!!!")
+	return nil
+}
+
+func listServices(services []core.Service) {
+	fmt.Println("Список услуг: ")
+	for _, service := range services {
+		fmt.Printf(
+			"%s\n",
+			service.Name,
 		)
 	}
 }

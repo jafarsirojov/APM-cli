@@ -1,0 +1,9 @@
+2020/02/15 12:46:13 start application
+2020/02/15 12:46:13 open db
+2020/02/15 12:46:14 start operations loop
+2020/02/15 12:46:20 finish operations loop
+2020/02/15 12:46:20 finish application
+2020/02/15 12:46:20 close db
+2020/02/15 12:46:24 start application
+2020/02/15 12:46:24 open db
+2020/02/15 12:46:24 start operations loop
